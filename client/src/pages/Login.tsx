@@ -12,7 +12,6 @@ export default function Login() {
   useEffect(() => {
     fetch("/api/auth/me")
       .then((res) => {
-        if (!res.ok) return;
         setCsrfToken(res.headers.get("X-CSRF-Token") ?? "");
       })
       .catch(() => {});
