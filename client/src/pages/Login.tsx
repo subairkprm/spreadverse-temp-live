@@ -10,9 +10,17 @@ export default function Login() {
 
   const login = useMutation({
     mutationFn: async (data: typeof form) => {
+      // Fetch CSRF token via a safe GET request before the mutating POST
+      const csrfRes = await fetch("/api/auth/me", { credentials: "include" });
+      if (!csrfRes.ok && csrfRes.status !== 401) {
+        throw new Error("Could not obtain CSRF token");
+      }
+      const csrfToken = csrfRes.headers.get("x-csrf-token") ?? "";
+
       const res = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        credentials: "include",
         body: JSON.stringify(data),
       });
       if (!res.ok) {
