@@ -10,9 +10,19 @@ export default function Login() {
 
   const login = useMutation({
     mutationFn: async (data: typeof form) => {
+      // Fetch CSRF token first via GET /api/auth/me
+      const meRes = await fetch("/api/auth/me");
+      if (!meRes.ok) {
+        throw new Error("Unable to fetch security token. Please refresh and try again.");
+      }
+      const csrfToken = meRes.headers.get("X-CSRF-Token") ?? "";
+
       const res = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken,
+        },
         body: JSON.stringify(data),
       });
       if (!res.ok) {
