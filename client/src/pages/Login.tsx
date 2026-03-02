@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
@@ -7,12 +7,26 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState<string>("");
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => {
+        if (!res.ok) return;
+        setCsrfToken(res.headers.get("X-CSRF-Token") ?? "");
+      })
+      .catch(() => {});
+  }, []);
 
   const login = useMutation({
     mutationFn: async (data: typeof form) => {
+      if (!csrfToken) throw new Error("Unable to retrieve CSRF token. Please refresh and try again.");
       const res = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken,
+        },
         body: JSON.stringify(data),
       });
       if (!res.ok) {
