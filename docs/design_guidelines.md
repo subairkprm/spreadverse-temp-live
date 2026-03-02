@@ -1,4 +1,4 @@
-# Design Guidelines for SPEAD VERSE V4
+# Design Guidelines for SPREAD VERSE V4
 
 ## Design Approach
 **System-Based Approach**: Given this is a productivity-focused banking CRM platform, we'll use Material Design principles adapted for finance/enterprise, prioritizing clarity, data hierarchy, and professional trustworthiness.
