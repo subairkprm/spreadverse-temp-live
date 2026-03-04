@@ -42,14 +42,14 @@ spreadverse-temp-live/
 ## Quick Start
 
 ```bash
-# Install dependencies
+# 1. Install updated packages
 npm install
 
-# Push database schema
+# 2. Push Drizzle schema to Supabase database
 npm run db:push
 
-# Seed default admin user
-npx tsx script/seed.ts
+# 3. Run seed script to create default workspace and admin user
+npm run db:seed
 
 # Start development server
 npm run dev
