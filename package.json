@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "@neondatabase/serverless": "^0.10.4",
     "bcrypt": "^5.1.1",
     "connect-pg-simple": "^10.0.0",
     "drizzle-orm": "^0.39.1",
@@ -24,7 +23,6 @@
     "memorystore": "^1.6.7",
     "multer": "^2.1.0",
     "pg": "^8.13.3",
-    "ws": "^8.18.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -36,7 +34,6 @@
     "@types/pg": "^8.11.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "@types/ws": "^8.5.13",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "drizzle-kit": "^0.30.2",
