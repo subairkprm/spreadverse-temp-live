@@ -41,19 +41,75 @@ spreadverse-temp-live/
 
 ## Quick Start
 
+Run these commands **in order** from the VS Code terminal (project root). Confirm the expected output for each step before moving to the next.
+
+---
+
+### Step 1 — Install all packages
+
 ```bash
-# 1. Install updated packages
 npm install
+```
 
-# 2. Push Drizzle schema to Supabase database
+**Expected success output:**
+
+```
+added <N> packages, and audited <N> packages in <Xs>
+found 0 vulnerabilities
+```
+
+> No `npm ERR!` lines should appear. Minor warnings about optional peer deps are okay.
+
+---
+
+### Step 2 — Push schema to Supabase database
+
+```bash
 npm run db:push
+```
 
-# 3. Run seed script to create default workspace and admin user
+**Expected success output:**
+
+```
+[✓] Changes applied
+```
+
+> Drizzle Kit will list the tables it created or updated (e.g. `workspaces`, `users`, `leads`, …) and end without any error. A line like `Everything's up to date 🚀` may also appear if the schema was already in sync.
+
+---
+
+### Step 3 — Run seed script
+
+```bash
 npm run db:seed
+```
 
-# Start development server
+**Expected success output:**
+
+```
+Seeding database…
+✅ Seeded: admin / admin123
+```
+
+> Both lines must appear. If you see a database connection error, verify that `DATABASE_URL` is set correctly in your `.env` file.
+
+---
+
+### Step 4 — Start dev server
+
+```bash
 npm run dev
 ```
+
+**Expected success output:**
+
+```
+[server] SPREAD VERSE V4 running on port 5000
+```
+
+> The terminal should stay open (server keeps running). Open `http://localhost:5000` in your browser and log in with `admin` / `admin123`.
+
+---
 
 Default credentials after seeding: `admin` / `admin123`
 
